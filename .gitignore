@@ -44,4 +44,5 @@ next-env.d.ts
 
 /generated/prisma
 dist
-idea
+idea.env
+.env.local
