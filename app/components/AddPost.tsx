@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession, signIn } from "next-auth/react";
@@ -11,6 +11,7 @@ export default function CreatePost() {
   const [isDisabled, setIsDisabled] = useState(false);
   const qc = useQueryClient();
   const { status } = useSession();
+  const toastPostID = useRef<string | null>(null);
 
   type AddPostInput = { title: string };
   type Post = { title: string };
@@ -27,22 +28,31 @@ export default function CreatePost() {
       console.error(error);
       if (axios.isAxiosError(error)) {
         // safe access to axios response payload
-        toast.error(error.response?.data?.message ?? "Request failed");
+        toast.error(error.response?.data?.message ?? "Request failed", {
+          id: toastPostID.current ?? undefined,
+        });
       } else if (error instanceof Error) {
         // generic JS error
-        toast.error(error.message);
+        toast.error(error.message, { id: toastPostID.current ?? undefined });
       } else {
-        toast.error("An unexpected error occurred");
+        toast.error("An unexpected error occurred", {
+          id: toastPostID.current ?? undefined,
+        });
       }
     },
     onSuccess: (data) => {
       console.log(data);
+      toast.success("Post created successfully!", {
+        id: toastPostID.current ?? undefined,
+      });
       setTitle("");
       qc.invalidateQueries({ queryKey: ["posts"] });
     },
     onSettled: () => {
       // always re-enable the UI after mutation finishes
       setIsDisabled(false);
+      // clear stored toast id
+      toastPostID.current = null;
     },
   });
 
@@ -53,12 +63,18 @@ export default function CreatePost() {
       toast.error("Please do not leave this empty");
       return;
     }
+    if (title.length > 300) {
+      toast.error("Please write a shorter post");
+      return;
+    }
     if (status !== "authenticated") {
       // if not signed in, open the auth flow instead of posting
       signIn();
       return;
     }
     setIsDisabled(true);
+    // show a loading toast and keep its id so success/error replace it
+    toastPostID.current = toast.loading("Creating your post...");
     mutate({ title });
   };
 
