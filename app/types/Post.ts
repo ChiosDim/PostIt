@@ -3,13 +3,13 @@ export type PostType = {
   title: string;
   user: {
     name: string;
-    image: string
-  }
+    image: string;
+  };
   createdAt: string;
-  comment?:{
+  comments: {
     id: string;
     userId: string;
     postId: string;
     createdAt: string;
-  }[]
+  }[];
 };
