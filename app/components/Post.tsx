@@ -9,7 +9,13 @@ type PostProps = {
   id: string;
 };
 
-export default function Post({ avatar, name, postTitle, id }: PostProps) {
+export default function Post({
+  avatar,
+  name,
+  postTitle,
+  id,
+  comments,
+}: PostProps) {
   const avatarSrc = avatar || "https://ui-avatars.com/api/?name=User"; // fallback if null/undefined
 
   return (
@@ -30,7 +36,9 @@ export default function Post({ avatar, name, postTitle, id }: PostProps) {
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
         <Link href={`/post/${id}`}>
-          <p className="text-sm font-bold text-gray-700">Comments</p>
+          <p className="text-sm font-bold text-gray-700">
+            {comments?.length} Comments
+          </p>
         </Link>
       </div>
     </div>

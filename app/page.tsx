@@ -4,15 +4,7 @@ import AddPost from "./components/AddPost";
 import { useQuery } from "@tanstack/react-query";
 import Post from "./components/Post";
 import React from "react";
-
-type PostType = {
-  id: string;
-  title: string;
-  user: {
-    name: string | null;
-    image?: string | null;
-  };
-};
+import type { PostType } from "./types/Post";
 
 //Fetch all posts
 const allPosts = async (): Promise<PostType[]> => {
@@ -35,6 +27,7 @@ export default function Home() {
       <AddPost />
       {data?.map((post: PostType) => (
         <Post
+          comments={post.comments}
           key={post.id}
           name={post.user?.name ?? "Unknown"}
           avatar={post.user?.image ?? undefined}
