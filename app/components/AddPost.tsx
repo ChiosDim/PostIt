@@ -11,6 +11,7 @@ export default function CreatePost() {
   const [isDisabled, setIsDisabled] = useState(false);
   const qc = useQueryClient();
   const { status } = useSession();
+  const queryClient = useQueryClient();
   const toastPostID = useRef<string | null>(null);
 
   type AddPostInput = { title: string };
@@ -45,6 +46,7 @@ export default function CreatePost() {
       toast.success("Post created successfully!", {
         id: toastPostID.current ?? undefined,
       });
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
       setTitle("");
       qc.invalidateQueries({ queryKey: ["posts"] });
     },
