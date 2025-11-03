@@ -45,7 +45,7 @@ export default function AddComment({ postId }: { postId: string }) {
   };
 
   return (
-    <form className="my-8">
+    <form onSubmit={submitComment} className="my-8">
       <h3>Add a comment</h3>
       <div className="flex flex-col bg-white rounded-md my-2">
         <input
