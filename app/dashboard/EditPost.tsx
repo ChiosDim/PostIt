@@ -1,9 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Toggle from "./Toggle";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -29,7 +33,7 @@ export default function EditPost({
 }: EditProps) {
   //Toggle
   const [toggle, setToggle] = useState(false);
-  let deleteToastID: string;
+  const deleteToastID = useRef<string | null>(null);
   const queryClient = useQueryClient();
   //Delete Post
   const { mutate } = useMutation<AxiosResponse, Error, string>({
@@ -37,17 +41,27 @@ export default function EditPost({
       await axios.delete("/api/posts/deletePost", { data: { id } }),
     onError: (error) => {
       console.error("Error deleting post:", error);
-      toast.error("Failed to delete post.", { id: deleteToastID });
+      toast.error("Failed to delete post.", {
+        id: deleteToastID.current ?? undefined,
+      });
+      deleteToastID.current = null;
     },
     onSuccess: (data) => {
       console.log(data);
-      toast.success("Post deleted successfully.", { id: deleteToastID });
+      toast.success("Post deleted successfully.", {
+        id: deleteToastID.current ?? undefined,
+      });
+      deleteToastID.current = null;
       queryClient.invalidateQueries({ queryKey: ["auth-posts"] });
+    },
+    onSettled: () => {
+      // ensure we don't keep a stale id
+      deleteToastID.current = null;
     },
   });
 
   const deletePost = () => {
-    deleteToastID = toast.loading("Deleting your post...");
+    deleteToastID.current = toast.loading("Deleting your post...");
     mutate(id);
   };
 
