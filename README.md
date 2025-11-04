@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## PostIt · Micro-blog with Next.js 15, NextAuth, Prisma, React Query & Tailwind
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=nextdotjs)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.18-2D3748?logo=prisma)](https://www.prisma.io/)
+[![TanStack Query](https://img.shields.io/badge/TanStack%20Query-v5-FF4154)](https://tanstack.com/query)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
 
-First, run the development server:
+A minimal micro-blog: sign in with Google, create posts, and comment.
 
+## Features
+
+- 🔐 **Google OAuth** (NextAuth v4, JWT sessions)
+- 🗃️ **Prisma + PostgreSQL** (User / Post / Comment models)
+- ⚡ **React Query v5** for fetching & caching
+- 🎨 **Tailwind CSS v4** with PostCSS plugin
+- 🖼️ **Next/Image** remote patterns for avatar hosts
+- ✅ **TypeScript** with strict types for API and UI
+- ♻️ Clean **Prisma client singleton** for dev HMR
+
+## Stack
+- **Next.js 15** (App Router UI) + **Pages API** (NextAuth v4)
+- **NextAuth v4** + **@next-auth/prisma-adapter**
+- **Prisma 6** + **PostgreSQL**
+- **@tanstack/react-query v5**
+- **Tailwind CSS v4**
+- **TypeScript**
+
+## 1 Clone & install
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ChiosDim/PostIt.git
+cd postit
+npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2 Create .env.local (do not commit):
+```bash
+DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DB
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=YOUR_LONG_RANDOM_STRING
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+```
 
-## Learn More
+Prisma:
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
 
-To learn more about Next.js, take a look at the following resources:
+Run:
+```bash
+npm run dev
+# App: http://localhost:3000
+# Session check: http://localhost:3000/api/auth/session
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Scripts
+```bash
+npm run dev       # dev server (Turbopack)
+npm run build     # production build
+npm start         # start production build
+```
