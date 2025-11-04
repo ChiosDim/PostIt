@@ -19,6 +19,7 @@ A minimal micro-blog: sign in with Google, create posts, and comment.
 - ♻️ Clean **Prisma client singleton** for dev HMR
 
 ## Stack
+
 - **Next.js 15** (App Router UI) + **Pages API** (NextAuth v4)
 - **NextAuth v4** + **@next-auth/prisma-adapter**
 - **Prisma 6** + **PostgreSQL**
@@ -26,14 +27,22 @@ A minimal micro-blog: sign in with Google, create posts, and comment.
 - **Tailwind CSS v4**
 - **TypeScript**
 
-## 1 Clone & install
+## Live Demo
+
+The app is live on Vercel:
+
+**https://post-it-sooty.vercel.app**
+
+## Clone & install
+
 ```bash
 git clone https://github.com/ChiosDim/PostIt.git
 cd postit
 npm i
 ```
 
-## 2 Create .env.local (do not commit):
+## Create .env.local (do not commit):
+
 ```bash
 DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DB
 
@@ -44,20 +53,23 @@ GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
 ```
 
-Prisma:
+## Prisma:
+
 ```bash
 npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-Run:
+## Run:
+
 ```bash
 npm run dev
 # App: http://localhost:3000
 # Session check: http://localhost:3000/api/auth/session
 ```
 
-Scripts
+## Scripts
+
 ```bash
 npm run dev       # dev server (Turbopack)
 npm run build     # production build
