@@ -15,9 +15,10 @@
     "@tanstack/react-query": "^5.90.5",
     "@tanstack/react-query-devtools": "^5.90.2",
     "axios": "^1.12.2",
+    "dotenv": "^17.3.1",
     "framer-motion": "^12.23.24",
-    "next": "15.5.9",
-    "next-auth": "4.24.11",
+    "next": "^15.5.12",
+    "next-auth": "^4.24.13",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hot-toast": "^2.6.0"
@@ -27,7 +28,7 @@
     "@types/node": "^20.19.23",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "prisma": "^6.18.0",
+    "prisma": "^6.19.2",
     "tailwindcss": "^4.1.15",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
