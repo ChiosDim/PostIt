@@ -5,7 +5,7 @@ import prisma from "../../../prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "GET") {
     const session = await getServerSession(req, res, authOptions);
@@ -22,7 +22,7 @@ export default async function handler(
         include: {
           posts: {
             orderBy: { createdAt: "desc" },
-            include: { comments: true },
+            include: { comments: true, likes: true },
           },
         },
       });
