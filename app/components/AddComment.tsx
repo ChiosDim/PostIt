@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useSession, signIn } from "next-auth/react";
 
-type Props = { postId: string };
+type Props = { postId: string; currentUserId?: string };
 
 type CommentUser = { id: string; name: string | null; image: string | null };
 type CreatedComment = {
@@ -20,7 +20,7 @@ type CreatedComment = {
 
 type AddCommentVars = { postId: string; message: string };
 
-export default function AddComment({ postId }: Props) {
+export default function AddComment({ postId, currentUserId }: Props) {
   const { status } = useSession();
   const [message, setMessage] = React.useState("");
   const [isDisabled, setIsDisabled] = React.useState(false);
@@ -30,7 +30,7 @@ export default function AddComment({ postId }: Props) {
   const addComment = async (vars: AddCommentVars): Promise<CreatedComment> => {
     const { data } = await axios.post<CreatedComment>(
       "/api/posts/addComment",
-      vars
+      vars,
     );
     return data;
   };

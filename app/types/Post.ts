@@ -5,13 +5,22 @@ export type CommentUser = {
   image: string | null;
 };
 
+export type LikeType = {
+  id: string;
+  userId: string;
+  postId: string | null;
+  commentId: string | null;
+  createdAt: string;
+};
+
 export type CommentType = {
   id: string;
   postId: string;
   userId: string;
-  createdAt: string; 
+  createdAt: string;
   message: string;
-  user: CommentUser; 
+  user: CommentUser;
+  likes: LikeType[];
 };
 
 export type PostUser = {
@@ -26,4 +35,5 @@ export type PostType = {
   createdAt: string;
   user: PostUser;
   comments: CommentType[];
+  likes: LikeType[];
 };
