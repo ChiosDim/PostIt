@@ -134,39 +134,115 @@ export default function Post({
     : false;
 
   return (
-    <div className="bg-white my-8 p-8 rounded-lg shadow-md">
-      <div className="flex items-center gap-2">
+    <div className="bg-white my-4 sm:my-8 p-4 sm:p-8 rounded-lg shadow-md">
+      <div className="flex items-center gap-2 sm:gap-3">
         <Image
-          className="rounded-full"
-          width={32}
-          height={32}
+          className="rounded-full w-8 h-8 sm:w-10 sm:h-10"
+          width={40}
+          height={40}
           src={avatarSrc}
           alt="avatar"
           priority
         />
-        <h3 className="font-bold text-gray-700">{name}</h3>
+        <h3 className="font-bold text-sm sm:text-base text-gray-700 truncate">
+          {name}
+        </h3>
       </div>
-      <div className="my-8">
+      <div className="my-4 sm:my-8">
         {isEditing ? (
           <div className="flex flex-col gap-2">
             <textarea
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
-              className="w-full p-2 border rounded-md resize-none"
+              className="w-full p-2 sm:p-3 border rounded-md resize-none text-sm sm:text-base"
               rows={3}
             />
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <button
                 onClick={handleEdit}
                 disabled={editPost.isPending}
-                className="bg-teal-600 text-white px-4 py-1 rounded-md text-sm disabled:opacity-60"
+                className="
+                  flex items-center gap-1.5
+                  text-sm font-semibold
+                  text-white
+                  px-4 py-1.5 rounded-md
+                  transition-all duration-200
+                  transform hover:scale-105
+                  disabled:opacity-60 disabled:hover:scale-100
+                  bg-gradient-to-r from-teal-500 to-teal-600
+                  hover:from-teal-400 hover:to-teal-500
+                "
               >
-                {editPost.isPending ? "Saving..." : "Save"}
+                {editPost.isPending ? (
+                  <>
+                    <svg
+                      className="animate-spin h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      ></path>
+                    </svg>
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    Save
+                  </>
+                )}
               </button>
               <button
                 onClick={cancelEdit}
-                className="bg-gray-500 text-white px-4 py-1 rounded-md text-sm"
+                className="
+                  flex items-center gap-1.5
+                  text-sm font-semibold
+                  text-gray-600
+                  px-4 py-1.5 rounded-md
+                  transition-all duration-200
+                  transform hover:scale-105
+                  bg-gray-100 hover:bg-gray-200
+                "
               >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
                 Cancel
               </button>
             </div>
@@ -175,19 +251,21 @@ export default function Post({
           <p className="break-all">{postTitle}</p>
         )}
       </div>
-      <div className="flex gap-4 cursor-pointer items-center">
+      <div className="flex flex-wrap gap-3 sm:gap-4 cursor-pointer items-center">
         {/* Like button */}
         <button
           onClick={handleLike}
-          className="flex items-center gap-1 text-gray-700 hover:text-red-500 transition-colors"
+          className="flex items-center gap-1.5 text-gray-600 hover:text-red-500 transition-all duration-200 hover:scale-105 active:scale-95 px-2 py-1 rounded-full hover:bg-red-50"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill={isLiked ? "currentColor" : "none"}
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            fill={isLiked ? "currentColor" : "none"}
             stroke="currentColor"
-            className="w-5 h-5"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-5 h-5 transition-transform duration-200"
           >
             <path
               strokeLinecap="round"
@@ -195,28 +273,72 @@ export default function Post({
               d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
             />
           </svg>
-          <span className="text-sm font-bold">{likeCount}</span>
+          <span className="text-sm font-semibold">{likeCount}</span>
         </button>
 
         <Link href={`/post/${id}`}>
-          <p className="text-sm font-bold text-gray-700">
+          <p className="text-xs sm:text-sm font-bold text-gray-700">
             {comments?.length ?? 0} Comments
           </p>
         </Link>
 
         {/* Edit and Delete buttons for owner */}
         {isOwner && (
-          <div className="flex gap-3 ml-auto">
+          <div className="flex gap-2 ml-auto">
             <button
               onClick={() => setIsEditing(true)}
-              className="text-sm font-bold text-blue-600 hover:text-blue-800"
+              className="
+                flex items-center gap-1.5
+                text-sm font-semibold
+                px-3 py-1.5 rounded-md
+                transition-all duration-200
+                transform hover:scale-105
+                bg-blue-100 text-blue-600
+                hover:bg-blue-200 hover:text-blue-700
+              "
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
               Edit
             </button>
             <button
               onClick={handleDelete}
-              className="text-sm font-bold text-red-500 hover:text-red-700"
+              className="
+                flex items-center gap-1.5
+                text-sm font-semibold
+                px-3 py-1.5 rounded-md
+                transition-all duration-200
+                transform hover:scale-105
+                bg-red-100 text-red-600
+                hover:bg-red-200 hover:text-red-700
+              "
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
               Delete
             </button>
           </div>

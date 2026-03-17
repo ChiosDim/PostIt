@@ -66,8 +66,8 @@ export default function AddComment({ postId, currentUserId }: Props) {
   };
 
   return (
-    <form onSubmit={submit} className="my-8">
-      <h3 className="font-semibold">Add a comment</h3>
+    <form onSubmit={submit} className="my-4 sm:my-8">
+      <h3 className="font-semibold text-sm sm:text-base">Add a comment</h3>
       <div className="flex flex-col bg-white rounded-md my-2">
         <input
           value={message}
@@ -75,19 +75,30 @@ export default function AddComment({ postId, currentUserId }: Props) {
           type="text"
           name="message"
           placeholder="Write a comment…"
-          className="p-4 text-lg rounded-md my-2"
+          className="p-3 sm:p-4 text-sm sm:text-lg rounded-md my-2 w-full"
         />
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
         <button
           disabled={isDisabled || isPending || message.trim().length === 0}
-          className="text-sm bg-teal-600 text-white py-2 px-5 rounded-md disabled:opacity-60"
+          className="
+            text-sm font-semibold
+            text-white
+            py-2 px-4 sm:px-5
+            rounded-lg
+            w-full sm:w-auto
+            transition-all duration-300 ease-in-out
+            transform hover:scale-105 hover:shadow-lg
+            disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none
+            bg-gradient-to-r from-teal-500 to-teal-600
+            hover:from-teal-400 hover:to-teal-500
+          "
           type="submit"
         >
           {isPending ? "Posting…" : "Add Comment"}
         </button>
         <p
-          className={`font-bold ${
+          className={`font-bold text-xs sm:text-sm ${
             message.length > 300 ? "text-red-700" : "text-gray-700"
           }`}
         >

@@ -9,8 +9,10 @@ export default async function Dashboard() {
     redirect("/api/auth/signin");
   }
   return (
-    <main>
-      <h1 className="text-2xl font-bold">Welcome back {session?.user?.name}</h1>
+    <main className="py-4 sm:py-8">
+      <h1 className="text-xl sm:text-2xl font-bold text-center sm:text-left">
+        Welcome back {session?.user?.name}
+      </h1>
       <MyPosts />
     </main>
   );

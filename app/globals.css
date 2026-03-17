@@ -1,3 +1,4 @@
+/* eslint-disable unknownAtRules */
 @import "tailwindcss";
 
 :root {
@@ -5,11 +6,42 @@
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-roboto);
 }
 
+/* Hide Next.js and React Query script/data elements */
+html > body > script,
+html > body > noscript,
+html > body > #__NEXT_DATA__,
+html > body > #__react_query_builder,
+html > body > [data-nextjs-data],
+html > body > #__rq,
+html > body > div[id*="react-query"],
+html > body > div[id*="__react"],
+html > body > div[id*="rq-"],
+html > body > div[class*="react-hot-toast"],
+html > body > div[role="status"],
+html > body > nextjs-route-announcer,
+html > body > #portal-root,
+html > body > [data-radix-portal],
+html body > [class*="react-query-devtools"],
+html body > [class*="ReactQueryDevtools"] {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  clip: rect(0, 0, 0, 0) !important;
+}
 
+/* Hide portal roots */
+div#portal-root,
+div[data-portal] {
+  display: none !important;
+}

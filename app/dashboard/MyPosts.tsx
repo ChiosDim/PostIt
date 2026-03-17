@@ -15,10 +15,12 @@ export default function MyPosts() {
     queryKey: ["auth-posts"],
   });
   if (isLoading) {
-    return <h1>Posts are loading...</h1>;
+    return (
+      <h1 className="text-center text-gray-600 py-8">Posts are loading...</h1>
+    );
   }
   return (
-    <div>
+    <div className="mt-4 sm:mt-8">
       {data?.posts?.map((post) => (
         <EditPost
           id={post.id}

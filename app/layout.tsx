@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Nav from "./auth/Nav";
 import QueryWrapper from "./auth/QueryWrapper";
+import Footer from "./components/Footer";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -21,11 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`mx-4 md:mx-48 xl:mx-96 ${roboto.variable} bg-gray-200`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`mx-4 md:mx-48 xl:mx-96 ${roboto.variable} bg-gray-200 min-h-screen flex flex-col`}
+      >
         <QueryWrapper>
           <Nav />
-          {children}
+          <main className="grow">{children}</main>
+          <Footer />
         </QueryWrapper>
       </body>
     </html>
