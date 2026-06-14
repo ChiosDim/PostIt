@@ -7,6 +7,7 @@ type ToggleProps = {
 
 export default function Toggle({
   deletePostAction,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setToggleAction,
 }: ToggleProps) {
   return (
@@ -31,7 +32,7 @@ export default function Toggle({
             transition-all duration-300 ease-in-out
             transform hover:scale-105 hover:shadow-lg
             focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2
-            bg-gradient-to-r from-red-500 to-red-600
+            bg-linear-to-r from-red-500 to-red-600
             hover:from-red-400 hover:to-red-500
           "
         >

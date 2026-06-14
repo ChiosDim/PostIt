@@ -34,8 +34,6 @@ export default async function handler(
   if (!user) return res.status(404).json({ error: "User not found" });
 
   try {
-    const { title, postId } = await req.body;
-
     const created = await prisma.comment.create({
       data: { postId, userId: user.id, message: msg },
       include: { user: { select: { id: true, name: true, image: true } } },

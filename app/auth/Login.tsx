@@ -16,7 +16,7 @@ export default function Login() {
           transition-all duration-300 ease-in-out
           transform hover:scale-105 hover:shadow-lg
           focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2
-          bg-gradient-to-r from-gray-600 to-gray-700
+          bg-linear-to-r from-gray-600 to-gray-700
           hover:from-gray-500 hover:to-gray-600
         "
       >

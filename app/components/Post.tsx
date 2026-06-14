@@ -169,7 +169,7 @@ export default function Post({
                   transition-all duration-200
                   transform hover:scale-105
                   disabled:opacity-60 disabled:hover:scale-100
-                  bg-gradient-to-r from-teal-500 to-teal-600
+                  bg-linear-to-r from-teal-500 to-teal-600
                   hover:from-teal-400 hover:to-teal-500
                 "
               >

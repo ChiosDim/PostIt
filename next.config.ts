@@ -1,4 +1,3 @@
-import type { NextConfig } from "next";
 
 const nextConfig = {
   images: {
@@ -21,4 +20,3 @@ export default nextConfig;
 
 
 
-//lh3.googleusercontent.com", "avates.githubusercontent.com"],

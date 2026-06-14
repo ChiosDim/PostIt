@@ -7,9 +7,7 @@ import { motion } from "framer-motion";
 import Post from "../../components/Post";
 import AddComment from "../../components/AddComment";
 import type { PostType } from "../../types/Post";
-import { use } from "react";
-import { useSession } from "next-auth/react";
-import { useState, useRef } from "react";
+import { use, useState, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -39,8 +37,6 @@ const fetchCurrentUser = async (): Promise<{ user: CurrentUser }> => {
 
 export default function PostDetail({ params }: PageProps) {
   const { slug } = use(params);
-  const { data: session } = useSession();
-  const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery<PostType>({
     queryKey: ["detail-post", slug],
@@ -74,7 +70,7 @@ export default function PostDetail({ params }: PageProps) {
       />
 
       {/* AddComment expects postId */}
-      <AddComment postId={data.id} currentUserId={currentUserId} />
+      <AddComment postId={data.id} />
 
       {data.comments.map((comment) => (
         <CommentItem
@@ -232,7 +228,7 @@ function CommentItem({ comment, postId, currentUserId }: CommentItemProps) {
                   transition-all duration-200
                   transform hover:scale-105
                   disabled:opacity-60 disabled:hover:scale-100
-                  bg-gradient-to-r from-teal-500 to-teal-600
+                  bg-linear-to-r from-teal-500 to-teal-600
                   hover:from-teal-400 hover:to-teal-500
                 "
               >

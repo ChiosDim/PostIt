@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useSession, signIn } from "next-auth/react";
 
-type Props = { postId: string; currentUserId?: string };
+type Props = { postId: string };
 
 type CommentUser = { id: string; name: string | null; image: string | null };
 type CreatedComment = {
@@ -20,7 +20,7 @@ type CreatedComment = {
 
 type AddCommentVars = { postId: string; message: string };
 
-export default function AddComment({ postId, currentUserId }: Props) {
+export default function AddComment({ postId }: Props) {
   const { status } = useSession();
   const [message, setMessage] = React.useState("");
   const [isDisabled, setIsDisabled] = React.useState(false);
@@ -90,7 +90,7 @@ export default function AddComment({ postId, currentUserId }: Props) {
             transition-all duration-300 ease-in-out
             transform hover:scale-105 hover:shadow-lg
             disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none
-            bg-gradient-to-r from-teal-500 to-teal-600
+            bg-linear-to-r from-teal-500 to-teal-600
             hover:from-teal-400 hover:to-teal-500
           "
           type="submit"

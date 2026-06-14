@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 import Toggle from "./Toggle";
 import {
-  QueryClient,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
