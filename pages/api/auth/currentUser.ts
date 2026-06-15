@@ -1,11 +1,11 @@
 import { withApiAuth } from '../../../app/lib/apiHandler'
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiResponse } from 'next'
 import prisma from '../../../prisma/client'
 
 export default withApiAuth({
   method: 'GET',
   requireAuth: false,
-  handler: async (req, res, session, user) => {
+  handler: async (_req, res, session, _user) => {
     // user will be null if requireAuth false and no session, or if session missing email.
     // But we still have session object to check email.
     if (!session || !session.user?.email) {

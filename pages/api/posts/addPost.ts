@@ -1,11 +1,10 @@
 import { withApiAuth } from '../../../app/lib/apiHandler'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../prisma/client'
 
 export default withApiAuth({
   method: 'POST',
   requireAuth: true,
-  handler: async (req, res, session, user) => {
+  handler: async (req, res, session, _user) => {
     console.log('POST /api/posts/addPost - body:', req.body)
 
     try {

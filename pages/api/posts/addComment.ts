@@ -1,11 +1,10 @@
 import { withApiAuth } from '../../../app/lib/apiHandler'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../prisma/client'
 
 export default withApiAuth({
   method: 'POST',
   requireAuth: true,
-  handler: async (req, res, session, user) => {
+  handler: async (req, res, _session, user) => {
     const { postId, message } = req.body as { postId?: string; message?: string }
     const msg = (message ?? '').trim()
     if (!postId) return res.status(400).json({ error: 'Missing postId' })

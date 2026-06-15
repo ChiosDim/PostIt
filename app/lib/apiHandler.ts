@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from './authOptions'
 import type { Session, NextAuthOptions } from 'next-auth'
 import prisma from '../../prisma/client'
+import type { Prisma } from '@prisma/client'
 
 interface ApiHandlerOptions {
   method: string
@@ -50,6 +51,48 @@ export function withApiAuth(options: ApiHandlerOptions) {
     } catch (err) {
       console.error('API handler error:', err)
       return res.status(500).json({ error: 'Internal server error' })
+    }
+  }
+}
+
+export function withToggleLike(options: { relation: 'postId' | 'commentId'; idParamName: string }) {
+  return async (req: NextApiRequest, res: NextApiResponse, session: Session | null, user: { id: string } | null) => {
+    // Note: We assume the method and auth have been validated by the outer withApiAuth wrapper.
+    // So we don't check method or session/user here.
+
+    const id = req.body[options.idParamName] as string | undefined
+    if (!id) {
+      return res.status(400).json({ error: `Missing ${options.idParamName}` })
+    }
+
+    try {
+      // Check if already liked
+      let where: Prisma.LikeWhereUniqueInput
+      if (options.relation === 'postId') {
+        where = { userId_postId: { userId: user!.id, postId: id } }
+      } else {
+        where = { userId_commentId: { userId: user!.id, commentId: id } }
+      }
+
+      const existingLike = await prisma.like.findUnique({
+        where,
+      })
+
+      if (existingLike) {
+        await prisma.like.delete({ where: { id: existingLike.id } })
+        return res.status(200).json({ liked: false })
+      } else {
+        await prisma.like.create({
+          data: {
+            userId: user!.id,
+            [options.relation]: id,
+          },
+        })
+        return res.status(200).json({ liked: true })
+      }
+    } catch (err) {
+      console.error(`Error toggling ${options.relation} like:`, err)
+      return res.status(500).json({ error: `Error toggling ${options.relation} like` })
     }
   }
 }

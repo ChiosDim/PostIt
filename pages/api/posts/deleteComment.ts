@@ -1,13 +1,12 @@
 import { withApiAuth } from '../../../app/lib/apiHandler'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../prisma/client'
 
 export default withApiAuth({
   method: 'DELETE',
   requireAuth: true,
-  handler: async (req, res, session, user) => {
+  handler: async (_req, res, _session, user) => {
     // user is guaranteed non-null because requireAuth true and we passed validation
-    const { id } = req.body as { id?: string }
+    const { id } = _req.body as { id?: string }
 
     if (!id || typeof id !== 'string') {
       return res.status(400).json({ error: 'Missing or invalid id' })

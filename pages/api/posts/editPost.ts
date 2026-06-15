@@ -1,11 +1,10 @@
 import { withApiAuth } from '../../../app/lib/apiHandler'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../prisma/client'
 
 export default withApiAuth({
   method: 'PUT',
   requireAuth: true,
-  handler: async (req, res, session, user) => {
+  handler: async (req, res, _session, user) => {
     const { id, title } = req.body as { id?: string; title?: string }
 
     if (!id || typeof id !== 'string') {

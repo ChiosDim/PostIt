@@ -1,11 +1,10 @@
 import { withApiAuth } from '../../../app/lib/apiHandler'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../prisma/client'
 
 export default withApiAuth({
   method: 'DELETE',
   requireAuth: true,
-  handler: async (req, res, session, user) => {
+  handler: async (req, res, _session, _user) => {
     console.log('DELETE /api/posts/deletePost - body:', req.body)
     try {
       const { id } = req.body
