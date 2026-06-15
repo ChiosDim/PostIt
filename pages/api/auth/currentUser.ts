@@ -1,5 +1,4 @@
 import { withApiAuth } from '../../../app/lib/apiHandler'
-import type { NextApiResponse } from 'next'
 import prisma from '../../../prisma/client'
 
 export default withApiAuth({

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from './authOptions'
-import type { Session, NextAuthOptions } from 'next-auth'
+import type { Session } from 'next-auth'
 import prisma from '../../prisma/client'
 import type { Prisma } from '@prisma/client'
 
