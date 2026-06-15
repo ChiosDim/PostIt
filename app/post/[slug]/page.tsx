@@ -76,7 +76,6 @@ export default function PostDetail({ params }: PageProps) {
         <CommentItem
           key={comment.id}
           comment={comment}
-          postId={data.id}
           currentUserId={currentUserId}
         />
       ))}
@@ -87,11 +86,10 @@ export default function PostDetail({ params }: PageProps) {
 // Comment Item Component with Like, Edit, Delete
 type CommentItemProps = {
   comment: PostType["comments"][0];
-  postId: string;
   currentUserId?: string;
 };
 
-function CommentItem({ comment, postId, currentUserId }: CommentItemProps) {
+function CommentItem({ comment, currentUserId }: CommentItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedMessage, setEditedMessage] = useState(comment.message);
   const queryClient = useQueryClient();

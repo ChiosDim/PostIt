@@ -7,12 +7,11 @@ type ToggleProps = {
 
 export default function Toggle({
   deletePostAction,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setToggleAction,
 }: ToggleProps) {
   return (
     <div
-      onClick={(e) => setToggleAction(false)}
+      onClick={() => setToggleAction(false)}
       className="fixed bg-black/50 w-full h-full z-20 left-0 top-0 flex items-center justify-center p-4"
     >
       <div className="absolute bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 sm:p-12 rounded-lg flex flex-col gap-4 sm:gap-6 max-w-sm w-full">

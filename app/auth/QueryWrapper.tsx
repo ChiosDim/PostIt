@@ -5,15 +5,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
-const client = new QueryClient();
+const queryClient = new QueryClient();
 export default function QueryWrapper({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <SessionProvider>
-      <QueryClientProvider client={client}>
+      <QueryClientProvider client={queryClient}>
         <Toaster />
         {children}
       </QueryClientProvider>

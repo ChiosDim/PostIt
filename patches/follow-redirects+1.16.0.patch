@@ -1,0 +1,17 @@
+diff --git a/node_modules/follow-redirects/index.js b/node_modules/follow-redirects/index.js
+index 3d32523..4dd8cd8 100644
+--- a/node_modules/follow-redirects/index.js
++++ b/node_modules/follow-redirects/index.js
+@@ -31,6 +31,12 @@ var sensitiveHeaders = [
+   "Authorization",
+   "Proxy-Authorization",
+   "Cookie",
++  "X-API-Key",
++  "X-Auth-Token",
++  "Api-Key",
++  "Token",
++  "X-Access-Token",
++  "X-CSRF-Token",
+ ];
+ 
+ // URL fields to preserve in copy operations

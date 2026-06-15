@@ -37,7 +37,7 @@ export default function AddComment({ postId }: Props) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: addComment,
-    onSuccess: (_created) => {
+    onSuccess: () => {
       setMessage("");
       setIsDisabled(false);
       toast.success("Comment added!", { id: toastId.current });
